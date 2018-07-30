@@ -13,10 +13,12 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize socketIOClient_For_Games_Menu, socketIOClient_For_Game_Animation, socketAPI, eventsAPI, gamesForChampionshipArray, socketUUID;
+//, arrayOfDictionaryForChampionship, arrayOfDictionaryForCountry,arrayOfDictionaryForGames;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
     return YES;
 }
 
@@ -30,22 +32,31 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [socketIOClient_For_Games_Menu disconnect];
+    [socketIOClient_For_Game_Animation disconnect];
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [socketIOClient_For_Games_Menu connect];
+    [socketIOClient_For_Game_Animation connect];
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [socketIOClient_For_Games_Menu connect];
+    [socketIOClient_For_Game_Animation connect];
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
+    [socketIOClient_For_Games_Menu disconnect];
+    [socketIOClient_For_Game_Animation disconnect];
+    
     [self saveContext];
 }
 
